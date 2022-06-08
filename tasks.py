@@ -3,7 +3,7 @@ from multiprocessing import Pool
 from invoke import task
 
 
-latest_version_string = "6.2.1"
+latest_version_string = "7.0.0"
 
 version_config_mapping = []
 version_config_mapping += [f"3.0.{i}" for i in range(0, 8)]
@@ -13,6 +13,7 @@ version_config_mapping += [f"5.0.{i}" for i in range(0, 13)]
 version_config_mapping += [f"6.0.{i}" for i in range(0, 13)]
 version_config_mapping += [f"6.2-rc{i}" for i in range(1, 3)]
 version_config_mapping += [f"6.2.{i}" for i in range(0, 2)]
+version_config_mapping += [f"7.0.{i}" for i in range(0, 1)]
 
 
 def version_name_to_version(version):
@@ -57,7 +58,7 @@ def _docker_pull(config):
     """
     c, version = config
     print(f" -- Starting docker pull for version : {version}")
-    pull_command = f"docker pull grokzen/redis-cluster:{version}"
+    pull_command = f"docker pull tbbream/redis-cluster:{version}"
     c.run(pull_command)
 
 
@@ -67,7 +68,7 @@ def _docker_build(config):
     """
     c, version = config
     print(f" -- Starting docker build for version : {version}")
-    build_command = f"docker build --build-arg redis_version={version} -t grokzen/redis-cluster:{version} ."
+    build_command = f"docker build --build-arg redis_version={version} -t tbbream/redis-cluster:{version} ."
     c.run(build_command)
 
 
@@ -77,7 +78,7 @@ def _docker_push(config):
     """
     c, version = config
     print(f" -- Starting docker push for version : {version}")
-    build_command = f"docker push grokzen/redis-cluster:{version}"
+    build_command = f"docker push tbbream/redis-cluster:{version}"
     c.run(build_command)
 
 
